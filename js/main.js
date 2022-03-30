@@ -45,7 +45,7 @@ function geoFindMe() {
     mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
     mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
     //window.location.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-   // window.location.href = `https://www.mbruzda.github.io/map.html?a=${latitude}&b=${longitude}`;
+    //window.location.href = `https://www.mbruzda.github.io/map.html?a=${latitude}&b=${longitude}`;
 
 
         // Creating map options
@@ -80,5 +80,10 @@ function geoFindMe() {
 }
 
 function vibrate() {
-  navigator.vibrate([1000,300,1000,300,1000,300,3000,300,3000,300,3000,300,1000,300,1000,300,1000]);
+  navigator.vibrate(500)
 }
+
+
+
+
+
