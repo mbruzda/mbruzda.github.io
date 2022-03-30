@@ -60,7 +60,7 @@ function geoFindMe() {
     // Creating a Layer object
     var params = parseURLParams(window.location.href)
 
-    var layer = new L.TileLayer(`https://{s}.tile.openstreetmap.org/${latitude}/${longitude}/10.png`);
+    var layer = new L.TileLayer(`http://{s}.tile.openstreetmap.org/${latitude}/${longitude}/10.png`);
 
     // Adding layer to the map
     map.addLayer(layer);
