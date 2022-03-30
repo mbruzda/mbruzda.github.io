@@ -36,3 +36,7 @@ function geoFindMe() {
   }
 
 }
+
+function vibrate() {
+  navigator.vibrate(500)
+}
