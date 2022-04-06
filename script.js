@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
-import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
+import { collection, getDocs, setDoc,doc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
 
 // Import the functions you need from the SDKs you need
 // Your web app's Firebase configuration
@@ -38,15 +38,15 @@ export async function getAllAssets(){
 let submit = document.querySelector('#submit')
 
 submit.addEventListener('click', function(){
-  writeUserData("a", "b", "c")
+  writeUserData(document.getElementById("name").value, true, document.getElementById("number").value)
 })
 
-function writeUserData(name, email, imageUrl) {
+function writeUserData(name, bool, number) {
   console.log("asko pedau")
-  set(ref(db, 'napoje'), {
-    username: name,
-    email: email,
-    profile_picture : imageUrl
+  setDoc(doc(db, 'napoje', name), {
+    nazwa: name,
+    gazowany: bool,
+    'pojemnosc(ml)' : number
   });
 }
 

@@ -1,54 +1,158 @@
 <html>
     <head>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <style>
+             .field{
+    padding: 20px;
+}
+
+.first{
+    font-size: large;
+    font:bold
+}
+
+.list{
+    justify-items: center;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.drink{
+    display: flex;
+  justify-content: space-between;
+}
+body {
+  font-family: sans-serif;
+  text-align: center;
+
+}
+
+/* Make content area fill the entire browser window */
+html,
+.fullscreen {
+  display: flex;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+button{
+    margin-top: 10px;
+}
+
+
+
+.title {
+  font-size: 3rem;
+}
+        </style>
+        
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <script type="module">
-            // Import the functions you need from the SDKs you need
+        <script type="module" >
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"
-            // TODO: Add SDKs for Firebase products that you want to use
-            // https://firebase.google.com/docs/web/setup#available-libraries
-            
-            // Firestore
-            import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
-            import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
-          
-            // Your web app's Firebase configuration
-            const firebaseConfig = {
-                apiKey: "AIzaSyDpRtZOjlHkosYblKMs_fTN1j1HbE7Aoxg",
-                authDomain: "mrocin-firebase-services.firebaseapp.com",
-                projectId: "mrocin-firebase-services",
-                storageBucket: "mrocin-firebase-services.appspot.com",
-                messagingSenderId: "21615399150",
-                appId: "1:21615399150:web:516a572905c719f2aca3ff",
-                measurementId: "G-B1LV38310D"
-            };
-          
-            // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
+import { collection, getDocs, setDoc,doc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
 
-            // Initialize Cloud Firestore and get a reference to the service
-            const db = getFirestore(app);
+// Import the functions you need from the SDKs you need
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDpRtZOjlHkosYblKMs_fTN1j1HbE7Aoxg",
+    authDomain: "mrocin-firebase-services.firebaseapp.com",
+    projectId: "mrocin-firebase-services",
+    storageBucket: "mrocin-firebase-services.appspot.com",
+    messagingSenderId: "21615399150",
+    appId: "1:21615399150:web:516a572905c719f2aca3ff",
+    measurementId: "G-B1LV38310D"
+};
 
-            // Read data
-            const querySnapshot = await getDocs(collection(db, "napoje"));
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
-            querySnapshot.forEach((doc) => {
-                console.log(doc.data());
-                console.log(doc.data()['nazwa'],doc.data()['pojemnosc(ml)']);
-                document.writeln(doc.data()['nazwa'],' ',doc.data()['pojemnosc(ml)'],'<br>');
-            });
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
+
+let btn = document.querySelector('#btn')
+
+btn.addEventListener('click', function(){
+    document.querySelector(".list").innerHTML="";
+    getAllAssets()
+})
+export async function getAllAssets(){
+    const querySnapshot = await getDocs(collection(db, "napoje"));
+    querySnapshot.forEach((doc) => {
+        console.log(doc.data());
+
+        doc.data().forEach = addElement(doc.data()['nazwa'],doc.data()['pojemnosc(ml)'],doc.data()['gazowany']);
+
+    });
+}
+
+let submit = document.querySelector('#submit')
+
+submit.addEventListener('click', function(){
+    
+  writeUserData(document.getElementById("name").value, document.getElementById("type").value, document.getElementById("number").value)
+})
+
+function writeUserData(name, bool, number) {
+  console.log("asko pedau")
+  setDoc(doc(db, 'napoje', name), {
+    nazwa: name,
+    gazowany: bool,
+    'pojemnosc(ml)' : number
+  });
+}
+
+function addElement(q,w,e){
+
+  var drinkString = `            <div class = "drink">
+  <span class = "field">${q}</span>
+  <span class = "field">${w}</span>
+  <span class = "field">${e}</span>
+</div>`
+  var drink = htmlToElement(drinkString);
+  document.querySelector(".list").appendChild(drink);
+}
+
+function htmlToElement(html) {
+  var template = document.createElement('template');
+  html = html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html;
+  return template.content.firstChild;
+}
 
         </script>
-
-
-
-        <div class="list">
+        
+        <div class="form-group">
+            <label for="name">Nazwa napoju</label>
+            <input type="email" class="form-control" id="name" placeholder="Nazwa napoju">
+          </div>
+          <div class="form-group">
+            <label for="type">Czy napój jest gazowany?</label>
+            <select class="form-control" id="type">
+              <option value="true">Gazowany</option>
+              <option value="false">Niegazowany</option>
+            </select>
+            </div>
+            <div class="input-group">
+                <label for="number">Jaka jest pojemność (ml)?</label>
+                <input type="number" id="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+              </div>
+              <button type="button" id="submit">Add Items</button>
+              <button type="button" id="btn">Fetch Items</button>
             <div class = "drink">
                 <span class = "field first">Nazwa</span>
                 <span class = "field first">Pojemność</span>
                 <span class = "field first">Gazowany</span>
             </div>
+        <div class="list">
         </div>
+        
     </body>
 </html>
