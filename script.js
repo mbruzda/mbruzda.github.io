@@ -35,6 +35,21 @@ export async function getAllAssets(){
     });
 }
 
+let submit = document.querySelector('#submit')
+
+submit.addEventListener('click', function(){
+  writeUserData("a", "b", "c")
+})
+
+function writeUserData(name, email, imageUrl) {
+  console.log("asko pedau")
+  set(ref(db, 'napoje'), {
+    username: name,
+    email: email,
+    profile_picture : imageUrl
+  });
+}
+
 function addElement(q,w,e){
 
   var drinkString = `            <div class = "drink">
