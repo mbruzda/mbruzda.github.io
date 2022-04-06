@@ -1,0 +1,21 @@
+ .field{
+    padding: 20px;
+}
+
+.first{
+    font-size: large;
+    font:bold
+}
+
+.list{
+    background-color: azure;
+    justify-items: center;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.drink{
+    display: flex;
+  justify-content: space-between;
+}
