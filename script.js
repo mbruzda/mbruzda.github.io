@@ -20,7 +20,11 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
+let btn = document.querySelector('#btn')
 
+btn.addEventListener('click', function(){
+    getAllAssets()
+})
 export async function getAllAssets(){
     const querySnapshot = await getDocs(collection(db, "napoje"));
     querySnapshot.forEach((doc) => {
