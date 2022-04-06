@@ -25,7 +25,26 @@ export async function getAllAssets(){
     const querySnapshot = await getDocs(collection(db, "napoje"));
     querySnapshot.forEach((doc) => {
         console.log(doc.data());
-        console.log(doc.data()['nazwa'],doc.data()['pojemnosc(ml)']);
-        return doc.data()
+
+        doc.data().forEach = addElement(doc.data()['nazwa'],doc.data()['pojemnosc(ml)'],doc.data()['gazowany']);
+
     });
+}
+
+function addElement(q,w,e){
+
+  var drinkString = `            <div class = "drink">
+  <span class = "field">${q}</span>
+  <span class = "field">${w}</span>
+  <span class = "field">${e}</span>
+</div>`
+  var drink = htmlToElement(drinkString);
+  document.querySelector(".list").appendChild(drink);
+}
+
+function htmlToElement(html) {
+  var template = document.createElement('template');
+  html = html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html;
+  return template.content.firstChild;
 }
