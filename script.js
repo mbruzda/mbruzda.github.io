@@ -1,13 +1,10 @@
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
+import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
+// Import the functions you need from the SDKs you need
+// Your web app's Firebase configuration
+const firebaseConfig = {
     apiKey: "AIzaSyDpRtZOjlHkosYblKMs_fTN1j1HbE7Aoxg",
     authDomain: "mrocin-firebase-services.firebaseapp.com",
     projectId: "mrocin-firebase-services",
@@ -15,9 +12,20 @@
     messagingSenderId: "21615399150",
     appId: "1:21615399150:web:516a572905c719f2aca3ff",
     measurementId: "G-B1LV38310D"
-  };
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
+
+
+export async function getAllAssets(){
+    const querySnapshot = await getDocs(collection(db, "napoje"));
+    querySnapshot.forEach((doc) => {
+        console.log(doc.data());
+        console.log(doc.data()['nazwa'],doc.data()['pojemnosc(ml)']);
+        return doc.data()
+    });
+}
