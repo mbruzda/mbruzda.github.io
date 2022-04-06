@@ -31,12 +31,12 @@
             const db = getFirestore(app);
 
             // Read data
-            const querySnapshot = await getDocs(collection(db, "cars"));
+            const querySnapshot = await getDocs(collection(db, "napoje"));
 
             querySnapshot.forEach((doc) => {
                 console.log(doc.data());
-                console.log(doc.data()['brand'],doc.data()['model']);
-                document.writeln(doc.data()['brand'],' ',doc.data()['model'],'<br>');
+                console.log(doc.data()['nazwa'],doc.data()['pojemnosc(ml)']);
+                document.writeln(doc.data()['nazwa'],' ',doc.data()['pojemnosc(ml)'],'<br>');
             });
 
         </script>
