@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+        input{
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <form @submit.prevent="saveForm" >
+            <label for="title">Tytuł</label>
+            <input id="title" v-model="title" type="text">
+            <label for="name">Imię</label>
+            <input id="name" v-model="name" type="text">
+            <label for="surname">Nazwisko</label>
+            <input id="surname" v-model="surname" type="text">
+            <input type="submit" value="Zapisz">
+        </form>
+    </div>
+    <script>
+const app = Vue.createApp({
+    data() {
+        return {
+            title: "",
+            name: "",
+            surname: ""
+        }
+    },
+    methods:{
+        saveForm(){
+            console.log(this.title + " " + this.name + " " + this.surname)
+        }
+    }
+})
+
+
+    </script>
+<script>
+    const mountedApp = app.mount('#app')
+</script>
+</body>
+</html>
