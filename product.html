@@ -18,7 +18,7 @@
         <div>Amount: {{quantity * unitPrice}} zł</div>
         <div>Vat Tax Rate: {{tax}} %</div>
         <div>==============</div>
-        <b>Total: {{parseFloat((100+tax)*(quantity * unitPrice))/100}}</b>
+        <b>Total: {{parseFloat((100+tax)*(quantity * unitPrice))/100}} zł</b>
     </div>
     <script>
 const app = Vue.createApp({
